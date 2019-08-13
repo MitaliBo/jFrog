@@ -6,7 +6,7 @@
 	<groupId>com.jfrog</groupId>
 	<artifactId>ArtifactoryRest</artifactId>
 	<version>1.0.0</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<name>ArtifactoryRest</name>
 
 	<properties>
@@ -69,27 +69,5 @@
 			<artifactId>junit</artifactId>
 		</dependency>
 	</dependencies>
-
-
-	<!-- <profiles> -->
-	<!-- <profile> -->
-	<!-- <id>embed-tomcat</id> -->
-	<!-- <dependencies> -->
-	<!-- <dependency> -->
-	<!-- <groupId>org.springframework.boot</groupId> -->
-	<!-- <artifactId>spring-boot-starter-tomcat</artifactId> -->
-	<!-- <scope>compile</scope> -->
-	<!-- </dependency> -->
-	<!-- </dependencies> -->
-	<!-- </profile> -->
-	<!-- </profiles> -->
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
 
 </project>
