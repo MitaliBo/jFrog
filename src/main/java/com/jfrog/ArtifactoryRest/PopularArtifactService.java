@@ -1,10 +1,9 @@
 package com.jfrog.ArtifactoryRest;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -107,7 +106,7 @@ public class PopularArtifactService {
 
 		log.info("****getPopularTopNJars API being called *****");
 
-		Set<ArtifactDetails> set = new TreeSet<ArtifactDetails>(new ArtifactCountComp());
+		TreeSet<ArtifactDetails> set = new TreeSet<ArtifactDetails>(new ArtifactCountComp());
 		try {
 
 			List<String> artifactList = getArtifactsFromRepo(repoName);
@@ -124,11 +123,16 @@ public class PopularArtifactService {
 		} catch (Exception e) {
 			log.error("Exception occured :" + e.getMessage());
 		}
+		
+		log.debug("Download count of artifact first***** : " + set.first().getDownloadCount());
 
-		Map<String, String> popularJarsMap = new HashMap<String, String>();
-		if (null != set) {
+		Map<String, String> popularJarsMap = null;
+		if (!set.isEmpty()) {		
 			popularJarsMap = set.stream().limit(topNjars)
-					.collect(Collectors.toMap(ArtifactDetails::getUri, ArtifactDetails::getDownloadCount));
+					.collect(Collectors.toMap(ArtifactDetails::getUri, 
+							ArtifactDetails::getDownloadCount,
+							(e1, e2) -> e2,
+							LinkedHashMap::new));
 		}
 
 
