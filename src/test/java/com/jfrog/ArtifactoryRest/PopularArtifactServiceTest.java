@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.client.RestTemplate;
 
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT,properties = {"security.basic.enabled=false"})
 @RunWith(SpringRunner.class)
 public class PopularArtifactServiceTest {
 
