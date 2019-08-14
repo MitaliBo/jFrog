@@ -1,8 +1,8 @@
-package com.frog.util;
+package com.jfrog.util;
 
 import java.util.Comparator;
 
-import com.frog.pojo.ArtifactDetails;
+import com.jfrog.pojo.ArtifactDetails;
 
 /*
  * Custom Comparator to sort

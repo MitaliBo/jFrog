@@ -1,4 +1,4 @@
-package com.frog.pojo;
+package com.jfrog.pojo;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

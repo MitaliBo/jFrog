@@ -1,4 +1,4 @@
-package com.frog.pojo;
+package com.jfrog.pojo;
 
 import java.util.List;
 

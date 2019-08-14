@@ -25,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.frog.pojo.ArtifactDetails;
-import com.frog.pojo.Result;
-import com.frog.pojo.ResultDetail;
-import com.frog.util.ArtifactCountComp;
+import com.jfrog.pojo.ArtifactDetails;
+import com.jfrog.pojo.Result;
+import com.jfrog.pojo.ResultDetail;
+import com.jfrog.util.ArtifactCountComp;
 
 /**
  * Rest API service to produce top 2 or
@@ -58,6 +58,22 @@ public class PopularArtifactService {
 
 	@Value("${pwd}")
 	String pwd;
+	
+	/**
+	 * Rest GET API to produce top 2 most donwloaded jars provided repoName Ex:
+	 * api/getPopularTopNJars/jcenter-cache
+	 * 
+	 * ex: jcenter-cache/acme/groovy/acmehttp/20180225/acmehttp-20180225.jar
+	 * @param PathVariable RepoName,toNjars 
+	 * @return Map of Jar URI and DownloadCount
+	 */
+	@GetMapping(path = "/status", produces = "application/json")
+	public String status() {
+
+		
+		return "Welcome to Popular Artifact Microservice!!";
+	}
+
 
 	/**
 	 * Rest GET API to produce top 2 most donwloaded jars provided repoName Ex:
@@ -70,32 +86,9 @@ public class PopularArtifactService {
 	@GetMapping(path = "/getPopularTopTwoJars/{repo}", produces = "application/json")
 	public Map<String, String> getPopularTopTwoJars(@PathVariable("repo") final String repoName) {
 
-		Set<ArtifactDetails> set = new TreeSet<ArtifactDetails>(new ArtifactCountComp());
+		log.info("****getPopularTopTwoJars API being called *****");
 
-		try {
-
-			List<String> artifactList = getArtifactsFromRepo(repoName);
-			if (null != artifactList && !artifactList.isEmpty()) {
-				for (String artifact : artifactList) {
-					ArtifactDetails artifactDetail = getArtifactDetails(artifact);
-					if (null != artifactDetail) {
-						log.debug("Download count of artifact : " + artifactDetail.getUri() + "is : "
-								+ artifactDetail.getDownloadCount());
-						set.add(artifactDetail);
-					}
-				}
-			}
-		} catch (Exception e) {
-			log.error("Exception occured :" + e.getMessage());
-		}
-
-		Map<String, String> popularJarsMap = new HashMap<String, String>();
-		if (null != set) {
-			popularJarsMap = set.stream().limit(2)
-					.collect(Collectors.toMap(ArtifactDetails::getUri, ArtifactDetails::getDownloadCount));
-		}
-
-		return popularJarsMap;
+		return getPopularTopNJars(repoName,2);
 
 	}
 
@@ -112,8 +105,9 @@ public class PopularArtifactService {
 	public Map<String, String> getPopularTopNJars(@PathVariable("repo") final String repoName,
 			@PathVariable("topN") final Integer topNjars) {
 
-		Set<ArtifactDetails> set = new TreeSet<ArtifactDetails>(new ArtifactCountComp());
+		log.info("****getPopularTopNJars API being called *****");
 
+		Set<ArtifactDetails> set = new TreeSet<ArtifactDetails>(new ArtifactCountComp());
 		try {
 
 			List<String> artifactList = getArtifactsFromRepo(repoName);
@@ -137,6 +131,8 @@ public class PopularArtifactService {
 					.collect(Collectors.toMap(ArtifactDetails::getUri, ArtifactDetails::getDownloadCount));
 		}
 
+
+		popularJarsMap.forEach((k,v)->log.info("jarName** : " + k + " **Count** : " + v));
 		return popularJarsMap;
 
 	}

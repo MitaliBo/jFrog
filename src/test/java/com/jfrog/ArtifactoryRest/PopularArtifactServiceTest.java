@@ -48,7 +48,7 @@ public class PopularArtifactServiceTest {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		final String baseUrl = "http://localhost:" + randomServerPort + "/api/getPopularTopTwoJars/jcenter-cache/5";
+		final String baseUrl = "http://localhost:" + randomServerPort + "/api/getPopularTopNJars/jcenter-cache/5";
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
