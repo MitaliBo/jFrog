@@ -1,5 +1,6 @@
 package com.jfrog.util;
 
+import java.math.BigInteger;
 import java.util.Comparator;
 
 import com.jfrog.pojo.ArtifactDetails;
@@ -20,12 +21,22 @@ public class ArtifactCountComp  implements Comparator<ArtifactDetails>{
 	 */
     @Override
     public int compare(ArtifactDetails ad1, ArtifactDetails ad2) {
-        if(Integer.valueOf(ad1.getDownloadCount()) < Integer.valueOf(ad2.getDownloadCount())){
+    	Integer totalDownloadCountAd1= Integer.valueOf(ad1.getDownloadCount())+ Integer.valueOf(ad1.getRemoteDownloadCount());
+    	Integer totalDownloadCountAd2= Integer.valueOf(ad2.getDownloadCount())+ Integer.valueOf(ad2.getRemoteDownloadCount());
+    	
+    	if( totalDownloadCountAd1 < totalDownloadCountAd2){
             return 1;
-        } else {
+        } else if  (totalDownloadCountAd1 == totalDownloadCountAd2){
+        	if( (new BigInteger(ad1.getLastDownloaded())).compareTo(new BigInteger(ad2.getLastDownloaded()))== -1){
+        		return 1;}
+        		else {
+        	return -1;
+        		}
+        	
+        }else
             return -1;
         }
     }
-}
+
 
 

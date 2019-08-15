@@ -100,7 +100,7 @@ public class PopularArtifactService {
 	 * @return Map of Jar URI and DownloadCount
 	 */
 
-	@GetMapping(path = "/getPopularTopNJars//{repo}/{topN}", produces = "application/json")
+	@GetMapping(path = "/getPopularTopNJars/{repo}/{topN}", produces = "application/json")
 	public Map<String, String> getPopularTopNJars(@PathVariable("repo") final String repoName,
 			@PathVariable("topN") final Integer topNjars) {
 
@@ -121,7 +121,7 @@ public class PopularArtifactService {
 				}
 			}
 		} catch (Exception e) {
-			log.error("Exception occured :" + e.getMessage());
+			log.error("Exception occured :" + e.getStackTrace());
 		}
 		
 		log.debug("Download count of artifact first***** : " + set.first().getDownloadCount());

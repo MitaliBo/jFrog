@@ -14,6 +14,24 @@ public class ArtifactDetails {
 	private String downloadCount;
 	private String lastDownloadedBy;
 	private String lastDownloaded;
+	private String remoteDownloadCount;
+	private String remoteLastDownloaded;
+
+	public String getRemoteDownloadCount() {
+		return remoteDownloadCount;
+	}
+
+	public void setRemoteDownloadCount(String remoteDownloadCount) {
+		this.remoteDownloadCount = remoteDownloadCount;
+	}
+
+	public String getRemoteLastDownloaded() {
+		return remoteLastDownloaded;
+	}
+
+	public void setRemoteLastDownloaded(String remoteLastDownloaded) {
+		this.remoteLastDownloaded = remoteLastDownloaded;
+	}
 
 	public String getUri() {
 		return uri;
